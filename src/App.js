@@ -1,26 +1,88 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Menu from './Menu.js';
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: [],
+      menuOpen: false,
+      selectedPokemon: null
+    }
+
+    this.selectPokemon  = this.selectPokemon.bind(this);
+  }
+
+  componentDidMount() {
+
+    fetch('https://pokeapi.co/api/v2/pokemon/1/')
+      .then(response => response.json())
+      .then(data => {
+        
+        this.setState({
+          items: [...this.state.items, data]
+        })
+      })
+
+      fetch('https://pokeapi.co/api/v2/pokemon/4/')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          items: [...this.state.items, data]
+        })
+      })
+
+      fetch('https://pokeapi.co/api/v2/pokemon/8/')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          items: [...this.state.items, data]
+        })
+      })
+
+      fetch('https://pokeapi.co/api/v2/pokemon/12/')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          items: [...this.state.items, data]
+        })
+      });
+  }
+
+  selectPokemon(pokemon) {
+
+
+    this.setState({
+      selectedPokemon: pokemon
+    })
+  }
+
+  render() {
+    const { menuOpen, selectedPokemon } = this.state;
+
+    console.log('this.state.items', this.state.items)
+    return (
+      <div className="App">
+        {selectedPokemon ? (
+          <img 
+            src={selectedPokemon.sprites.front_shiny} 
+            className="selectedPokemon"
+            alt=""
+          />
+        ) : null}
+        <button className="menuButton" onClick={() => this.setState({ menuOpen: !menuOpen })}>Open</button>
+        {menuOpen ?  (
+          <Menu 
+            items={this.state.items} 
+            selectItem={this.selectPokemon} 
+          />
+        ) : null }
+      </div>
+    );
+  }
 }
 
 export default App;
