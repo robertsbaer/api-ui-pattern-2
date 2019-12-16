@@ -62,18 +62,21 @@ class App extends React.Component {
 
   render() {
     const { menuOpen, selectedPokemon } = this.state;
-
-    console.log('this.state.items', this.state.items)
     return (
+      <>
+      <header><h1>Navbar api</h1></header>
       <div className="App">
+
         {selectedPokemon ? (
+          <>
           <img 
             src={selectedPokemon.sprites.front_shiny} 
             className="selectedPokemon"
-            alt=""
+            alt="{ selectedPokemon.name }"
           />
+          </>
         ) : null}
-        <button className="menuButton" onClick={() => this.setState({ menuOpen: !menuOpen })}>Open</button>
+        <button className="menuButton" onClick={() => this.setState({ menuOpen: !menuOpen })}>|||</button>
         {menuOpen ?  (
           <Menu 
             items={this.state.items} 
@@ -81,6 +84,7 @@ class App extends React.Component {
           />
         ) : null }
       </div>
+      </>
     );
   }
 }

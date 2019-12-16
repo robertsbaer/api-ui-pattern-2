@@ -8,7 +8,7 @@ class Menu extends React.Component {
         return (
             <div className="menu">
               {this.props.items.map(pokemon => (
-                <button key={pokemon.name} onClick={() => this.props.selectItem(pokemon)}>{pokemon.name}</button>
+                <h4 key={pokemon.name} onClick={() => this.props.selectItem(pokemon)}>{pokemon.name}</h4>
               ))}
             </div>
         );
